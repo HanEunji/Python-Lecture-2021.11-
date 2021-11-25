@@ -183,3 +183,4 @@ for i in range(qa):
         nul_look = ul_look
         print('Wrong')
     print(nul_look) # 이걸 반복!
+ 
