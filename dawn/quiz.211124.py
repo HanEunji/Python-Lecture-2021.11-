@@ -163,23 +163,89 @@ elif ai == -1:
 print(nul_look) # 이걸 반복!
 """
 # 여기까지 다시 정리.
-
+"""
 question = 'exciting'
 qa = len(question)
-ul = '_'
-ul_look = ul*qa
+ul_look = '_'*qa
+que = question
 print(ul_look)
 
-for i in range(qa):
+while question != ul_look:
     answer = input()
-# 받은 알파벳이 question에 해당되는지 찾기. 어떻게 찾지? 문자열로? > 문자열로 가 보자.
-    ai = question.find(answer) # 해당하는 문자가 있으면 인덱스값 반환.
-    print(ai)
-# 반환 받은 인덱스 값에 입력받은 글자를 넣..기 전에 아~ 중복 글자는 어쩌지. for로 다 바꿔
-# find 가 -1을 반환할 때까지 같은 글자를 찾아서 바꾸는 코드
+    ai = question.find(answer) # 입력받은 스펠이 있는지 인덱스값 찾기
     if ai >= 0:
-        nul_look = ul_look[:ai] + answer + ul_look[ai+1:] # 문자열에서 바꿀 부분 인덱스값을 알 때 슬라이스로 바꿔치기 하기. 검색해서 봄. 세상에.
-    elif ai == -1:
-        nul_look = ul_look
+        while ai != -1: # 인덱스 값이 존재하는 동안 반복함.
+            ai = que.find(answer)
+            if ai >= 0:
+                ul_look = ul_look[:ai] + answer + ul_look[ai+1:]
+                que = que[:ai] + '_' + que[ai+1:]
+            else:
+                print('Correct')
+                print(ul_look)
+    print('Wrong')
+    print(ul_look)
+print('Success')
+"""
+# 작동은 하는데... 중복되는 글자를 못 잡아낸다. 아, 인덱스값은 무조건 앞에서부터 찾아서.. 그럼 두 번째 이후를 찾으려면...?
+# >> 인덱스 찾을 변수도 같이 바꿔서 해결
+
+# 작동은 하는데222 같은 글자 한 번에 찾으려면..?
+# 찾긴 하는데 무한히 돌아감. 됐다! 이제 출력 정리.
+
+# 다시!
+
+"""
+question = 'exciting' # 문제로 낼 단어
+qa = len(question) # 단어의 길이를 qa에 저장
+ul_look = '_'*qa # 화면으로 보여줄 모습. 단어 길이만큼 _ 출력
+que = question # 정답을 맞히면 que의 글자를 _로 바꿔서 판단할 예정
+nul_look = ul_look
+print(ul_look) # 처음 문제 제시.
+
+while question != nul_look: # 문제와 밑줄이 같지 않으면 반복하는 코드
+    answer = input() # 답을 입력 받는다.
+    ai = question.find(answer) # 입력받은 스펠이 있는지 판단.
+    if ai == -1: # 입력받은 스펠이 없는 경우 출력문 내보내고 다시 답을 입력 받음.
         print('Wrong')
-    print(nul_look) # 이걸 반복!
+        print(nul_look)
+    else: # 입력받은 스펠이 있는 경우
+        while ai != -1: # 인덱스 값이 존재하는 동안 반복함. 
+            ai = que.find(answer)
+            if ai >= 0: 
+                nul_look = nul_look[:ai] + answer + nul_look[ai+1:]
+                que = que[:ai] + '_' + que[ai+1:]
+        print('Correct')
+        print(nul_look)
+print('Success')
+"""
+# 됐다! 정답인 경우 출력이 뒤에 계속 붙어서 이어지는 상황 > ai = que.find(answer) 가 if 밑에 있어서 인덱스 값이 -1로 변해서 발생. 위로 뺌.
+
+###########################################################################
+# 최종
+
+import random # 랜덤 써야 하니 모듈 가져오고
+test_game = ['today','is','very', 'exciting'] # 문제 뽑아올 리스트
+question = str(random.choice(test_game))
+
+qa = len(question) # 단어의 길이를 qa에 저장
+ul_look = '_'*qa # 화면으로 보여줄 모습. 단어 길이만큼 _ 출력
+que = question # 정답을 맞히면 que의 글자를 _로 바꿔서 판단할 예정
+nul_look = ul_look
+print(ul_look) # 처음 문제 제시.
+
+while question != nul_look: # 문제와 밑줄이 같지 않으면 반복하는 코드
+    answer = input() # 답을 입력 받는다.
+    ai = question.find(answer) # 입력받은 스펠이 있는지 판단.
+    if ai == -1: # 입력받은 스펠이 없는 경우 출력문 내보내고 다시 답을 입력 받음.
+        print('Wrong')
+        print(nul_look)
+    else: # 입력받은 스펠이 있는 경우
+        while ai != -1: # 인덱스 값이 존재하는 동안 반복함. 
+            ai = que.find(answer)
+            if ai >= 0: 
+                nul_look = nul_look[:ai] + answer + nul_look[ai+1:]
+                que = que[:ai] + '_' + que[ai+1:]
+        print('Correct')
+        print(nul_look)
+print('Success')
+
