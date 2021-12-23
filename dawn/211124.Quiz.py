@@ -222,7 +222,7 @@ print('Success')
 
 ###########################################################################
 # 최종
-
+"""
 import random # 랜덤 써야 하니 모듈 가져오고
 test_game = ['today','is','very', 'exciting'] # 문제 뽑아올 리스트
 question = str(random.choice(test_game))
@@ -248,4 +248,30 @@ while question != nul_look: # 문제와 밑줄이 같지 않으면 반복하는 
         print('Correct')
         print(nul_look)
 print('Success')
+"""
 
+##########################################################################
+# 코드 정리
+
+import random # 랜덤 써야 하니 모듈 가져오고
+question = input('영어 단어를 입력하세요.:')
+
+ul_look = '_'*len(question) # 화면으로 보여줄 모습. 단어 길이만큼 _ 출력
+que = question # 정답을 맞히면 que의 글자를 _로 바꿔서 언제까지 반복돌릴지 판단할 예정
+print(ul_look) # 처음 문제 제시.
+
+while question != ul_look: # 문제와 밑줄이 같지 않으면 반복하는 코드
+    answer = input() # 답을 입력 받는다.
+    ai = question.find(answer) # 입력받은 스펠이 있는지 판단.
+    if ai == -1: # 입력받은 스펠이 없는 경우 출력문 내보내고 다시 답을 입력 받음.
+        print('Wrong')
+        print(ul_look)
+    else: # 입력받은 스펠이 있는 경우
+        while ai != -1: # 인덱스 값이 존재하는 동안 반복함. 
+            ai = que.find(answer)
+            if ai >= 0: 
+                ul_look = ul_look[:ai] + answer + ul_look[ai+1:]
+                que = que[:ai] + '_' + que[ai+1:]
+        print('Correct')
+        print(ul_look)
+print('Success')
