@@ -251,10 +251,12 @@ print('Success')
 """
 
 ##########################################################################
-# 코드 정리
-
+# 코드 정리 / 내 풀이
+"""
 import random # 랜덤 써야 하니 모듈 가져오고
-question = input('영어 단어를 입력하세요.:')
+# question = input('영어 단어를 입력하세요.:')
+question_list = ['apple', 'banana', 'sky', 'miss']
+question = random.choice(question_list)
 
 ul_look = '_'*len(question) # 화면으로 보여줄 모습. 단어 길이만큼 _ 출력
 que = question # 정답을 맞히면 que의 글자를 _로 바꿔서 언제까지 반복돌릴지 판단할 예정
@@ -275,3 +277,36 @@ while question != ul_look: # 문제와 밑줄이 같지 않으면 반복하는 �
         print('Correct')
         print(ul_look)
 print('Success')
+"""
+
+
+
+from random import *
+words = ["apple", "banana", "orange"]
+word = choice(words)
+print("answer : " + word)
+letters = "" # 사용자로부터 지금까지 입력받은 모든 알파벳을 모음
+
+while True:
+    succeed = True
+    print()
+    for w in word:      # word를 돌면서 letters에 있는 철자는 표시, 없으면 _
+        if w in letters:
+            print(w, end=' ')
+        else:
+            print("_", end=' ')
+            succeed = False
+    print()
+
+    if succeed:         # 전부 맞히면 'success'출력 후 break
+        print('success')
+        break
+
+    letter = input("Input letter > ")   # 사용자 입력 받기
+    if letter not in letters:
+        letters += letter
+    
+    if letter in word:
+        print("Correct")
+    else:
+        print("Wrong")
